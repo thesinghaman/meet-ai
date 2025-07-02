@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>meet.ai - Have Smarter Conversations</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --primary-green: #00dc82;
+                --dark-green: #00b86b;
+                --background-dark: #121212;
+                --background-light: #1a1a1a;
+                --text-primary: #ffffff;
+                --text-secondary: #a0a0a0;
+                --border-color: #2d2d2d;
+            }
+            body {
+                font-family: "Inter", sans-serif;
+                margin: 0;
+                background-color: var(--background-dark);
+                color: var(--text-primary);
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            .container {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+            header {
+                padding: 24px 0;
+            }
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .logo {
+                font-size: 28px;
+                font-weight: 800;
+                color: var(--text-primary);
+                text-decoration: none;
+            }
+            .logo span {
+                color: var(--primary-green);
+            }
+            .hero {
+                padding: 120px 0;
+                text-align: center;
+            }
+            .hero .highlight {
+                color: var(--primary-green);
+            }
+            .hero h1 {
+                font-size: 64px;
+                font-weight: 800;
+                line-height: 1.1;
+                margin-bottom: 24px;
+                letter-spacing: -2px;
+            }
+            .hero p {
+                font-size: 20px;
+                color: var(--text-secondary);
+                max-width: 650px;
+                margin: 0 auto 40px;
+                line-height: 1.6;
+            }
+            .coming-soon-btn {
+                background-color: var(--primary-green);
+                color: var(--background-dark);
+                padding: 16px 32px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 18px;
+                display: inline-block;
+                transition: transform 0.2s ease;
+            }
+            .coming-soon-btn:hover {
+                transform: scale(1.05);
+            }
+            .hero-image-container {
+                margin-top: 80px;
+                position: relative;
+            }
+            .hero-image {
+                max-width: 100%;
+                border-radius: 24px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            }
+            .features {
+                padding: 100px 0;
+            }
+            .section-title {
+                text-align: center;
+                font-size: 42px;
+                font-weight: 800;
+                margin-bottom: 70px;
+                letter-spacing: -1px;
+            }
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            .feature-card {
+                background-color: var(--background-light);
+                padding: 32px;
+                border-radius: 16px;
+                border: 1px solid var(--border-color);
+            }
+            .feature-card h3 {
+                font-size: 22px;
+                font-weight: 700;
+                margin-top: 0;
+                margin-bottom: 12px;
+            }
+            .feature-card p {
+                color: var(--text-secondary);
+                line-height: 1.7;
+                margin-bottom: 0;
+            }
+
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 48px;
+                }
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <nav class="nav">
+                    <a href="#" class="logo">meet<span>.ai</span></a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h1>Call an AI, not just <span class="highlight">with</span> an AI.</h1>
+                    <p>
+                        Experience the next generation of real-time communication. Make calls directly with custom AI agents, and get automated summaries, searchable transcripts, and a full post-call analysis.
+                    </p>
+                    <div class="coming-soon-btn">Coming Soon</div>
+                    <div class="hero-image-container">
+                        <img src="./screenshot.jpg" alt="meet.ai Interface" class="hero-image" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">A Seamless Post-Call Experience</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>Real-Time AI Calls</h3>
+                            <p>Engage in dynamic, real-time conversations with specialized AI agents designed for any task or topic.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Automated Summaries</h3>
+                            <p>Instantly receive concise, intelligent summaries and full transcripts after every call, powered by background jobs.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Video & Transcript Playback</h3>
+                            <p>Review your calls with synchronized video and transcript playback, and search for key moments with ease.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

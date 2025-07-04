@@ -1,41 +1,114 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# General
 .DS_Store
-*.pem
+.AppleDouble
+.LSOverride
+.Trashes
+.localized
+.Spotlight-V100
+.fseventsd
 
-# debug
+# Node.js & General Dependencies
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+package-lock.json
+# Uncomment the line above if you are using npm and want to ignore the lock file, though it's generally recommended to commit it.
+yarn.lock
+# Uncomment the line above if you are using Yarn and want to ignore the lock file, though it's generally recommended to commit it.
+pnpm-lock.yaml
+# Uncomment the line above if you are using pnpm and want to ignore the lock file, though it's generally recommended to commit it.
 
-# env files (can opt-in for committing if needed)
-.env*
+# Build output
+dist
+build
+out
+.next/
+.vercel/
+.output/
 
-# vercel
-.vercel
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# typescript
-*.tsbuildinfo
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+!.env.example
+
+# Next.js
+.next/
+out/
 next-env.d.ts
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Drizzle ORM
+drizzle/
+*.sql
+
+# Shadcn UI
+components.json
+
+# Tailwind CSS
+tailwind.config.js.bak
+
+# Inngest
+.inngest/
+
+# tRPC
+.trpc/
+
+# Tanstack Query
+# No specific files to ignore, but caching might generate some if not handled in-memory.
+
+# Polar
+.polar/
+
+# OpenAI API & Other sensitive keys
+*.pem
+*.key
+credentials.json
+# Add any other files that may contain sensitive API keys or credentials.
+
+# Test runner caches
+.jest-cache
+.cache
+.nyc_output
+.eslintcache
+
+# Editor directories and files
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Miscellaneous
+coverage
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

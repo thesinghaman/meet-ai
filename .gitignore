@@ -112,3 +112,11 @@ coverage
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.stackdump

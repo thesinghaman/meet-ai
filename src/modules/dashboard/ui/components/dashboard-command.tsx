@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 import {
-  CommandDialog,
+  CommandResponsiveDialog,
   CommandInput,
   CommandItem,
   CommandList,
@@ -14,8 +14,8 @@ interface Props {
 
 export const DashboardCommand = ({ open, setOpen }: Props) => {
   return (
-    // CommandDialog component manages the modal/dialog display logic
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    // CommandResponsiveDialog component manages the modal/dialog display logic
+    <CommandResponsiveDialog open={open} onOpenChange={setOpen}>
       {/* Input field where users type their search queries or commands */}
       <CommandInput placeholder="Find a meeting or agent"></CommandInput>
 
@@ -24,6 +24,6 @@ export const DashboardCommand = ({ open, setOpen }: Props) => {
         {/* Example command item */}
         <CommandItem>Test</CommandItem>
       </CommandList>
-    </CommandDialog>
+    </CommandResponsiveDialog>
   );
 };

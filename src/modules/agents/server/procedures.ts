@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { desc, count, and, eq, getTableColumns, sql, ilike } from "drizzle-orm";
 
 import { db } from "@/db";
@@ -18,7 +19,7 @@ export const agentsRouter = createTRPCRouter({
   // Defining the 'getOne' query procedure, which retrieves a single agent
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       // Querying the database to select all agents from the 'agents' table
       const [existingAgent] = await db
         // TODO: Change to actual count of meetings
@@ -27,7 +28,16 @@ export const agentsRouter = createTRPCRouter({
           ...getTableColumns(agents),
         })
         .from(agents)
-        .where(eq(agents.id, input.id));
+        .where(
+          and(
+            eq(agents.id, input.id),
+            eq(agents.userId, ctx.auth.user.id) // Ensure the agent belongs to the authenticated user
+          )
+        );
+
+      if (!existingAgent) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+      }
 
       // Returning the data (list of agents) fetched from the database
       return existingAgent;

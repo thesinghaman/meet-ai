@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next";
 
 import { TRPCReactProvider } from "@/trpc/client";
 
@@ -25,17 +26,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Provide tRPC React context to enable remote procedure calls in the app
-    <TRPCReactProvider>
-      <html lang="en">
-        <body className={`${inter.className} ${inter.className} antialiased`}>
-          {/* Global notification toaster for user feedback */}
-          <Toaster />
+    <NuqsAdapter>
+      {/* Provide tRPC React context to enable remote procedure calls in the app */}
+      <TRPCReactProvider>
+        <html lang="en">
+          <body className={`${inter.className} ${inter.className} antialiased`}>
+            {/* Global notification toaster for user feedback */}
+            <Toaster />
 
-          {/* Render all nested page components */}
-          {children}
-        </body>
-      </html>
-    </TRPCReactProvider>
+            {/* Render all nested page components */}
+            {children}
+          </body>
+        </html>
+      </TRPCReactProvider>
+    </NuqsAdapter>
   );
 }

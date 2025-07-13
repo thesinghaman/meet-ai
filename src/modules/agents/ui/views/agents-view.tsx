@@ -9,15 +9,21 @@ import { EmptyState } from "@/components/empty-state";
 
 import { DataTable } from "../components/data-table";
 import { columns } from "../components/columns";
+import { useAgentsFilters } from "../../hooks/use-agents-filters";
+import { DataPagination } from "../components/data-pagination";
 
 // AgentsView component for displaying the fetched agents' data
 export const AgentsView = () => {
+  const [filters, setFilters] = useAgentsFilters();
+
   // Accessing the TRPC hook to interact with the backend
   const trpc = useTRPC();
 
-  // Fetching the list of agents using the `useSuspenseQuery` hook
-  // This hook will automatically throw a promise while data is loading, triggering Suspense
-  const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions());
+  const { data } = useSuspenseQuery(
+    trpc.agents.getMany.queryOptions({
+      ...filters,
+    })
+  );
 
   // This component returns a responsive layout containing a DataTable if data is available,
   // and an EmptyState component with a prompt to create the first agent if the data is empty.
@@ -25,10 +31,16 @@ export const AgentsView = () => {
     // Main container with responsive padding and vertical spacing
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
       {/* Renders a data table with the provided data and column definitions */}
-      <DataTable data={data} columns={columns} />
+      <DataTable data={data.items} columns={columns} />
+
+      <DataPagination
+        page={filters.page}
+        totalPages={data.totalPages}
+        onPageChange={(page) => setFilters({ page })}
+      />
 
       {/* If there's no data, show an empty state message prompting the user to create an agent */}
-      {data.length === 0 && (
+      {data.items.length === 0 && (
         <EmptyState
           title="Create your first agent"
           description="Create an agent to join meetings. Each agent will follow your instructions and can interact with participants during the calls."

@@ -46,7 +46,9 @@ export const AgentForm = ({
       // Handle successful agent creation
       onSuccess: async () => {
         // Invalidate the agents list query to refresh the data
-        await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions());
+        await queryClient.invalidateQueries(
+          trpc.agents.getMany.queryOptions({})
+        );
 
         // If editing an existing agent, also invalidate its individual query
         if (initialValues?.id) {

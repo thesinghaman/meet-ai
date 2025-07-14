@@ -12,10 +12,51 @@ import {
   DEFAULT_PAGE_SIZE,
 } from "@/constants";
 
-import { agentsInsertSchema } from "../schema";
+import { agentsInsertSchema, agentsUpdateSchema } from "../schemas";
 
 // Creating the agentsRouter using TRPC's router creation function
 export const agentsRouter = createTRPCRouter({
+  update: protectedProcedure
+    .input(agentsUpdateSchema)
+    .mutation(async ({ input, ctx }) => {
+      const [updatedAgent] = await db
+        .update(agents)
+        .set(input)
+        .where(
+          and(
+            eq(agents.id, input.id),
+            eq(agents.userId, ctx.auth.user.id) // Ensure the agent belongs to the authenticated user
+          )
+        )
+        .returning();
+
+      if (!updatedAgent) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+      }
+
+      return updatedAgent;
+    }),
+
+  remove: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const [removedAgent] = await db
+        .delete(agents)
+        .where(
+          and(
+            eq(agents.id, input.id),
+            eq(agents.userId, ctx.auth.user.id) // Ensure the agent belongs to the authenticated user
+          )
+        )
+        .returning();
+
+      if (!removedAgent) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+      }
+
+      return removedAgent;
+    }),
+
   // Defining the 'getOne' query procedure, which retrieves a single agent
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))

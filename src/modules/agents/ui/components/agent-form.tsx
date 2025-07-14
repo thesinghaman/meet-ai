@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 
 import { AgentGetOne } from "../../types";
-import { agentsInsertSchema } from "../../schema";
+import { agentsInsertSchema } from "../../schemas";
 
 // Define the props interface for the AgentForm component
 interface AgentFormProps {
@@ -50,6 +50,30 @@ export const AgentForm = ({
           trpc.agents.getMany.queryOptions({})
         );
 
+        // TODO: Invalidate the free tier usage
+
+        // Call the success callback if provided
+        onSuccess?.();
+      },
+      // Handle errors during agent creation
+      onError: (error) => {
+        // Show error toast notification
+        toast.error(`Failed to create agent: ${error.message}`);
+
+        // TODO: Check if error code is "FORBIDDEN" and redirect to "/upgrade"
+      },
+    })
+  );
+
+  const updateAgent = useMutation(
+    trpc.agents.update.mutationOptions({
+      // Handle successful agent update
+      onSuccess: async () => {
+        // Invalidate the agents list query to refresh the data
+        await queryClient.invalidateQueries(
+          trpc.agents.getMany.queryOptions({})
+        );
+
         // If editing an existing agent, also invalidate its individual query
         if (initialValues?.id) {
           await queryClient.invalidateQueries(
@@ -60,7 +84,7 @@ export const AgentForm = ({
         // Call the success callback if provided
         onSuccess?.();
       },
-      // Handle errors during agent creation
+      // Handle errors during agent updation
       onError: (error) => {
         // Show error toast notification
         toast.error(`Failed to create agent: ${error.message}`);
@@ -82,13 +106,16 @@ export const AgentForm = ({
   // Determine if this is an edit operation based on presence of initial values ID
   const isEdit = !!initialValues?.id;
   // Get pending state from the create mutation
-  const isPending = createAgent.isPending;
+  const isPending = createAgent.isPending || updateAgent.isPending;
 
   // Handle form submission
   const onSubmit = async (values: z.infer<typeof agentsInsertSchema>) => {
     if (isEdit) {
-      // TODO: Handle editing logic - currently just logs the values
-      console.log("Editing agent with values:", values);
+      // Update existing agent using the mutation
+      updateAgent.mutate({
+        id: initialValues!.id,
+        ...values,
+      });
     } else {
       // Create new agent using the mutation
       createAgent.mutate(values);

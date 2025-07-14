@@ -87,7 +87,7 @@ export const AgentForm = ({
       // Handle errors during agent updation
       onError: (error) => {
         // Show error toast notification
-        toast.error(`Failed to create agent: ${error.message}`);
+        toast.error(`Failed to update agent: ${error.message}`);
 
         // TODO: Check if error code is "FORBIDDEN" and redirect to "/upgrade"
       },
